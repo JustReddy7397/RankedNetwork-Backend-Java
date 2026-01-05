@@ -21,19 +21,13 @@ public class SocketSessionController {
 
     @ConnectMapping
     public void onConnect(RSocketRequester requester) {
-        System.out.println("WHAAAAAAT?");
         sessionStore.createSession(requester.rsocketClient());
 
         final RSocket socket = requester.rsocket();
 
-
         if (socket == null) {
             return;
         }
-
-        final String token = socket.availability() > 0 ? socket.toString() : "unknown";
-
-        Common.logInfo(token + " connected");
 
         socket.onClose()
                 .doFinally(signal -> sessionStore.removeSession(requester.rsocketClient()))

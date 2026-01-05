@@ -2,5 +2,4 @@ spring:
   rsocket:
     server:
       transport: websocket
-      mapping-path: /socket   # this is the path your client connects to
-      port: 3000             # choose any port
+      port: 3000

@@ -10,7 +10,9 @@ import network.ranked.backend.socket.packets.identity.ClientInfo;
 import network.ranked.backend.socket.packets.identity.enums.ClientType;
 import network.ranked.backend.socket.services.IdentityService;
 import network.ranked.backend.socket.store.SocketSessionStore;
+import network.ranked.backend.util.Common;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.rsocket.RSocketRequester;
 import org.springframework.stereotype.Controller;
 import reactor.core.publisher.Mono;
@@ -31,9 +33,10 @@ public class IdentityController {
 
     @MessageMapping("server:identity")
     public Mono<Ack<ClientInfo>> onIdentity(
-            ClientIdentity identity,
+            @Payload ClientIdentity identity,
             RSocketRequester requester
     ) {
+        Common.logInfo("Received identity from requester");
         return Mono.fromCallable(() -> {
             final SocketSession session = sessionStore.getSession(requester.rsocketClient());
 
@@ -41,6 +44,7 @@ public class IdentityController {
                 return Ack.<ClientInfo>error(String.format("%s is already identified", session.getClientInfo().getDisplayName()));
             }
 
+            Common.logInfo(identity.toString());
             final ClientInfo clientInfo = identityService.handle(identity);
             session.setClientInfo(clientInfo);
 
@@ -55,18 +59,23 @@ public class IdentityController {
                 );
             } else {
                 sessionStore.broadcast("servers-PROXY", "server:register", decoder.encode(clientInfo));
-
             }
 
+            Common.logInfo("Identity registered successfully");
             return Ack.ok(clientInfo);
-        }).onErrorResume(e -> Mono.just(Ack.error(e.getMessage())));
+        }).onErrorResume(e -> {
+            e.printStackTrace();
+            return Mono.just(Ack.error(e.getMessage()));
+        });
     }
 
     @MessageMapping("heartbeat")
     public Mono<Void> onHeartBeat(RSocketRequester requester) {
+        Common.logInfo("a");
         final SocketSession session = sessionStore.getSession(requester.rsocketClient());
 
         if (session == null || !session.isIdentified()) {
+            Common.logWarning("Received heartbeat from unrecognized session");
             return Mono.empty();
         }
 
