@@ -1,6 +1,5 @@
 package network.ranked.backend.repositories;
 
-import io.lettuce.core.dynamic.annotation.Command;
 import network.ranked.backend.repositories.custom.ProfileRepositoryCustom;
 import network.ranked.backend.socket.packets.player.PlayerProfile;
 import network.ranked.backend.socket.packets.player.enums.PlayerStatus;
@@ -13,6 +12,7 @@ import java.util.UUID;
 /**
  * @author JustReddy
  */
+
 public interface ProfileRepository extends Repository<PlayerProfile>, ProfileRepositoryCustom {
 
     Optional<PlayerProfile> findByUniqueId(UUID uniqueId);
@@ -31,15 +31,15 @@ public interface ProfileRepository extends Repository<PlayerProfile>, ProfileRep
 
     List<PlayerProfile> findAllByCachedNameIn(List<String> cachedNames);
 
-    default void createProfile(UUID uniqueId, String cachedName, boolean online) {
+    default Optional<PlayerProfile> createProfile(UUID uniqueId, String cachedName, boolean online) {
         if (existsByUniqueId(uniqueId)) {
-            return;
+            return Optional.empty();
         }
         PlayerProfile profile = new PlayerProfile(uniqueId, cachedName, null, online ? PlayerStatus.ONLINE : PlayerStatus.OFFLINE);
         save(profile);
         Common.logInfo("MONGO -> Created profile for " + cachedName + " (" + uniqueId + ")");
+        return Optional.of(profile);
     }
-
 
 
 }

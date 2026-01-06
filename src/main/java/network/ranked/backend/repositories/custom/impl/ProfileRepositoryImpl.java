@@ -3,7 +3,7 @@ package network.ranked.backend.repositories.custom.impl;
 import lombok.RequiredArgsConstructor;
 import network.ranked.backend.repositories.custom.ProfileRepositoryCustom;
 import network.ranked.backend.socket.packets.player.PlayerProfile;
-import org.springframework.context.annotation.Profile;
+import network.ranked.backend.util.Common;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -28,6 +28,7 @@ public class ProfileRepositoryImpl implements ProfileRepositoryCustom {
         fields.forEach(update::set);
 
         mongoTemplate.updateFirst(Query.query(Criteria.where("uniqueId").is(uniqueId)), update, PlayerProfile.class);
+        Common.logInfo("MONGO -> Updated profile for " + uniqueId);
     }
 
     @Override
@@ -50,6 +51,7 @@ public class ProfileRepositoryImpl implements ProfileRepositoryCustom {
             );
 
             mongoTemplate.updateFirst(query, update, PlayerProfile.class);
+            Common.logInfo("MONGO -> Updated profile for " + profile.getCachedName() + " (" + profile.getUniqueId() + ")");
         }
 
     }
@@ -60,5 +62,6 @@ public class ProfileRepositoryImpl implements ProfileRepositoryCustom {
         fields.forEach(update::set);
 
         mongoTemplate.updateFirst(Query.query(Criteria.where("uniqueId").in(uniqueIds)), update, PlayerProfile.class);
+        Common.logInfo("MONGO -> Updated partial profiles for " + uniqueIds.size() + " players.");
     }
 }
