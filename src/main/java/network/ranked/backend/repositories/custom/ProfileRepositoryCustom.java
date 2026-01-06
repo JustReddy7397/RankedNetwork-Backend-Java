@@ -12,13 +12,10 @@ import java.util.UUID;
  */
 public interface ProfileRepositoryCustom {
 
-    @Transactional
     void updateProfile(UUID uniqueId, Map<String, Object> fields);
 
-    @Transactional
     void updateProfiles(List<PlayerProfile> profiles, boolean isQuit);
 
-    @Transactional
     void updatePartialProfiles(List<UUID> uniqueIds, Map<String, Object> fields);
 
 }

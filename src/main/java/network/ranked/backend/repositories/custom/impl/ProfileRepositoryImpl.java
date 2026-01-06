@@ -24,6 +24,7 @@ public class ProfileRepositoryImpl implements ProfileRepositoryCustom {
 
     @Override
     public void updateProfile(UUID uniqueId, Map<String, Object> fields) {
+        
         Update update = new Update();
         fields.forEach(update::set);
 
