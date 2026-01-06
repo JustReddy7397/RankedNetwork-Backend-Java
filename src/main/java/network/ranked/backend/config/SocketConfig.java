@@ -1,12 +1,15 @@
 package network.ranked.backend.config;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.rsocket.RSocketStrategies;
 import org.springframework.messaging.rsocket.annotation.support.RSocketMessageHandler;
 
 /**
  * @author JustReddy
  */
+@Configuration
+
 public class SocketConfig {
 
     @Bean

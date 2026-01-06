@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
  * @author JustReddy
  */
 @Component
-public class PacketDecoder {
+public class CustomDecoder {
 
     private final ObjectMapper mapper = new ObjectMapper();
 

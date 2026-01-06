@@ -2,7 +2,7 @@ package network.ranked.backend.redis;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import network.ranked.backend.socket.decoder.PacketDecoder;
+import network.ranked.backend.socket.decoder.CustomDecoder;
 import network.ranked.backend.socket.packets.identity.ClientInfo;
 import network.ranked.backend.socket.packets.identity.enums.ClientType;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -24,7 +24,7 @@ public class RedisServerRepository {
     private static final Duration EXPIRY_TIME = Duration.ofSeconds(60);
 
     private final StringRedisTemplate redis;
-    private final PacketDecoder decoder;
+    private final CustomDecoder decoder;
 
     private String getServerKey(ClientType type, String id) {
         return "server:" + type + ":" + id;
@@ -107,7 +107,12 @@ public class RedisServerRepository {
         return servers;
     }
 
-    public void deleteServer(String identifier) {
+    public void deleteServer(ClientType type, int identifier) {
+        final String key = getServerKey(type, String.valueOf(identifier));
+        redis.delete(key);
+    }
+
+    public void deleteServer(int identifier) {
         final Set<String> keys =
                 redis.keys("server:*:" + identifier);
 

@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import network.ranked.backend.redis.RedisServerRepository;
 import network.ranked.backend.socket.Ack;
 import network.ranked.backend.socket.connection.SocketSession;
-import network.ranked.backend.socket.decoder.PacketDecoder;
+import network.ranked.backend.socket.decoder.CustomDecoder;
 import network.ranked.backend.socket.packets.identity.ClientIdentity;
 import network.ranked.backend.socket.packets.identity.ClientInfo;
 import network.ranked.backend.socket.packets.identity.enums.ClientType;
@@ -26,7 +26,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class IdentityController {
 
-    private final PacketDecoder decoder;
+    private final CustomDecoder decoder;
     private final SocketSessionStore sessionStore;
     private final RedisServerRepository serverRepository;
     private final IdentityService identityService;
