@@ -1,6 +1,5 @@
-package network.ranked.backend.socket.connection;
+package network.ranked.backend.socket.session;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import network.ranked.backend.socket.packets.identity.ClientInfo;

@@ -3,7 +3,7 @@ package network.ranked.backend.socket.controller;
 import lombok.RequiredArgsConstructor;
 import network.ranked.backend.redis.RedisServerRepository;
 import network.ranked.backend.socket.Ack;
-import network.ranked.backend.socket.connection.SocketSession;
+import network.ranked.backend.socket.session.SocketSession;
 import network.ranked.backend.socket.decoder.CustomDecoder;
 import network.ranked.backend.socket.packets.identity.ClientIdentity;
 import network.ranked.backend.socket.packets.identity.ClientInfo;
@@ -24,7 +24,7 @@ import java.util.Set;
  */
 @Controller
 @RequiredArgsConstructor
-public class IdentityController {
+public class ClientController {
 
     private final CustomDecoder decoder;
     private final SocketSessionStore sessionStore;
@@ -36,7 +36,7 @@ public class IdentityController {
             @Payload ClientIdentity identity,
             RSocketRequester requester
     ) {
-        Common.logInfo("Received identity from requester");
+        Common.logInfo("SOCKET -> server:identity received");
         return Mono.fromCallable(() -> {
             final SocketSession session = sessionStore.getSession(requester.rsocketClient());
 

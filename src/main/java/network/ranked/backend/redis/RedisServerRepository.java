@@ -44,6 +44,9 @@ public class RedisServerRepository {
     }
 
     public void saveServer(ClientInfo info) {
+        if (info == null) {
+            return;
+        }
         try {
             redis.opsForValue().set(
                     getServerKey(info.getType(), info.getIdentifier().toString()),
@@ -107,12 +110,12 @@ public class RedisServerRepository {
         return servers;
     }
 
-    public void deleteServer(ClientType type, int identifier) {
-        final String key = getServerKey(type, String.valueOf(identifier));
+    public void deleteServer(ClientType type, String identifier) {
+        final String key = getServerKey(type, identifier);
         redis.delete(key);
     }
 
-    public void deleteServer(int identifier) {
+    public void deleteServer(String identifier) {
         final Set<String> keys =
                 redis.keys("server:*:" + identifier);
 

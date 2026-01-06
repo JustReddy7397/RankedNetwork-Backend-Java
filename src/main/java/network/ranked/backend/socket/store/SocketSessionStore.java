@@ -1,7 +1,7 @@
 package network.ranked.backend.socket.store;
 
 import io.rsocket.core.RSocketClient;
-import network.ranked.backend.socket.connection.SocketSession;
+import network.ranked.backend.socket.session.SocketSession;
 import org.springframework.messaging.rsocket.RSocketRequester;
 import org.springframework.stereotype.Component;
 
