@@ -1,5 +1,0 @@
-spring:
-  rsocket:
-    server:
-      transport: websocket
-      port: 3000

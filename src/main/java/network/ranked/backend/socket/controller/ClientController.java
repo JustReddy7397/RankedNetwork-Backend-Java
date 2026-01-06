@@ -71,14 +71,14 @@ public class ClientController {
 
     @MessageMapping("heartbeat")
     public Mono<Void> onHeartBeat(RSocketRequester requester) {
-        Common.logInfo("a");
         final SocketSession session = sessionStore.getSession(requester.rsocketClient());
 
         if (session == null || !session.isIdentified()) {
-            Common.logWarning("Received heartbeat from unrecognized session");
+            Common.logWarning("SOCKET -> Received heartbeat from unrecognized session");
             return Mono.empty();
         }
 
+        Common.logInfo("SOCKET -> heartbeat received from " + session.getClientInfo().getDisplayName());
         serverRepository.refreshTtl(session.getClientInfo().getIdentifier().toString());
         return Mono.empty();
     }
