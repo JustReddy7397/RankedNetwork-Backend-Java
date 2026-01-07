@@ -19,6 +19,8 @@ public interface ProfileRepository extends Repository<PlayerProfile>, ProfileRep
 
     Optional<PlayerProfile> findByCachedName(String cachedName);
 
+    Optional<PlayerProfile> findByCachedNameIgnoreCase(String cachedName);
+
     Optional<PlayerProfile> findByDiscordId(String discordId);
 
     boolean existsByUniqueId(UUID uniqueId);
