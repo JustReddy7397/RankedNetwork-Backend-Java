@@ -18,6 +18,7 @@ import java.util.Set;
  */
 @Repository
 @RequiredArgsConstructor
+@Getter
 public class RedisServerRepository {
 
     private static final Duration EXPIRY_TIME = Duration.ofSeconds(60);
