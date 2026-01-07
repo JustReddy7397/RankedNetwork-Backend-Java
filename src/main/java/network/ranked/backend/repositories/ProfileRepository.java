@@ -1,7 +1,7 @@
 package network.ranked.backend.repositories;
 
 import network.ranked.backend.repositories.custom.ProfileRepositoryCustom;
-import network.ranked.backend.socket.packets.player.PlayerProfile;
+import network.ranked.backend.socket.packets.player.profile.PlayerProfile;
 import network.ranked.backend.socket.packets.player.enums.PlayerStatus;
 import network.ranked.backend.util.Common;
 

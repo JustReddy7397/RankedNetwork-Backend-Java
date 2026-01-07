@@ -1,7 +1,6 @@
 package network.ranked.backend.repositories.custom;
 
-import network.ranked.backend.socket.packets.player.PlayerProfile;
-import org.springframework.transaction.annotation.Transactional;
+import network.ranked.backend.socket.packets.player.profile.PlayerProfile;
 
 import java.util.List;
 import java.util.Map;

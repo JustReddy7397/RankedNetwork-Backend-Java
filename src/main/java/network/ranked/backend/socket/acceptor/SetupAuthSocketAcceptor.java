@@ -11,7 +11,6 @@ import org.springframework.messaging.rsocket.annotation.support.RSocketMessageHa
 import reactor.core.publisher.Mono;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 
 /**
  * @author JustReddy
@@ -35,6 +34,9 @@ public class SetupAuthSocketAcceptor implements SocketAcceptor {
         String token = null;
 
         for (CompositeMetadata.Entry entry : metadata) {
+            if (entry.getMimeType() == null) {
+                continue;
+            }
             if (entry.getMimeType().equals(WellKnownMimeType.TEXT_PLAIN.getString())) {
                 ByteBuf buf = entry.getContent();
                 token = buf.readCharSequence(buf.readableBytes(), StandardCharsets.UTF_8).toString().substring(1);

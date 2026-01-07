@@ -3,7 +3,7 @@ package network.ranked.backend.redis;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import network.ranked.backend.redis.data.PlayerRedisData;
-import network.ranked.backend.socket.decoder.CustomDecoder;
+import network.ranked.backend.socket.parser.CustomParser;
 import network.ranked.backend.socket.packets.identity.ClientPlayer;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Repository;
@@ -16,11 +16,10 @@ import java.util.List;
  */
 @Repository
 @RequiredArgsConstructor
-@Getter
 public class RedisPlayerRepository {
 
     private final StringRedisTemplate redis;
-    private final CustomDecoder decoder;
+    private final CustomParser decoder;
 
     public void savePlayers(List<ClientPlayer> players, String serverIdentifier, String proxyIdentifier) {
         for (final ClientPlayer clientPlayer : players) {

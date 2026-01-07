@@ -1,4 +1,4 @@
-package network.ranked.backend.socket.decoder;
+package network.ranked.backend.socket.parser;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
  * @author JustReddy
  */
 @Component
-public class CustomDecoder {
+public class CustomParser {
 
     private final ObjectMapper mapper = new ObjectMapper();
 

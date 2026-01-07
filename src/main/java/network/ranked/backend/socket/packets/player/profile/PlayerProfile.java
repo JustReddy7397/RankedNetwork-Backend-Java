@@ -1,4 +1,4 @@
-package network.ranked.backend.socket.packets.player;
+package network.ranked.backend.socket.packets.player.profile;
 
 import network.ranked.backend.socket.packets.player.enums.PlayerStatus;
 import org.springframework.data.mongodb.core.mapping.Document;

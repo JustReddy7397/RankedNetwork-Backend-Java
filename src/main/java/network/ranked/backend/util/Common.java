@@ -21,6 +21,10 @@ public class Common {
         logger.warn("[{}] {}", "BACKEND", message);
     }
 
+    public static void logError(String message) {
+        logger.error("[{}] {}", "BACKEND", message);
+    }
+
     public static String getDisplayName(ClientType type, int id) {
         return switch (type) {
             case PROXY -> "Proxy-" + id;

@@ -1,4 +1,4 @@
-package network.ranked.backend.socket.packets.player;
+package network.ranked.backend.socket.packets.player.profile;
 
 import java.util.UUID;
 

@@ -2,7 +2,7 @@ package network.ranked.backend.repositories.custom.impl;
 
 import lombok.RequiredArgsConstructor;
 import network.ranked.backend.repositories.custom.ProfileRepositoryCustom;
-import network.ranked.backend.socket.packets.player.PlayerProfile;
+import network.ranked.backend.socket.packets.player.profile.PlayerProfile;
 import network.ranked.backend.util.Common;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;

@@ -2,7 +2,7 @@ package network.ranked.backend.redis;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import network.ranked.backend.socket.decoder.CustomDecoder;
+import network.ranked.backend.socket.parser.CustomParser;
 import network.ranked.backend.socket.packets.identity.ClientInfo;
 import network.ranked.backend.socket.packets.identity.enums.ClientType;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -18,13 +18,12 @@ import java.util.Set;
  */
 @Repository
 @RequiredArgsConstructor
-@Getter
 public class RedisServerRepository {
 
     private static final Duration EXPIRY_TIME = Duration.ofSeconds(60);
 
     private final StringRedisTemplate redis;
-    private final CustomDecoder decoder;
+    private final CustomParser decoder;
 
     private String getServerKey(ClientType type, String id) {
         return "server:" + type + ":" + id;

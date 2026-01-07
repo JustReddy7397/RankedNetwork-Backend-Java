@@ -5,12 +5,12 @@ import network.ranked.backend.redis.RedisPlayerRepository;
 import network.ranked.backend.redis.RedisServerRepository;
 import network.ranked.backend.repositories.ProfileRepository;
 import network.ranked.backend.socket.Ack;
-import network.ranked.backend.socket.decoder.CustomDecoder;
+import network.ranked.backend.socket.parser.CustomParser;
 import network.ranked.backend.socket.packets.connection.PlayerConnectionUpdate;
 import network.ranked.backend.socket.packets.connection.PlayerConnectionUpdateResult;
 import network.ranked.backend.socket.packets.identity.ClientInfo;
 import network.ranked.backend.socket.packets.identity.ClientPlayer;
-import network.ranked.backend.socket.packets.player.PlayerProfile;
+import network.ranked.backend.socket.packets.player.profile.PlayerProfile;
 import network.ranked.backend.socket.session.SocketSession;
 import network.ranked.backend.socket.store.SocketSessionStore;
 import network.ranked.backend.util.Common;
@@ -31,7 +31,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class PlayerController {
 
-    private final CustomDecoder decoder;
+    private final CustomParser decoder;
     private final SocketSessionStore sessionStore;
     private final RedisServerRepository serverRepository;
     private final RedisPlayerRepository playerRepository;
