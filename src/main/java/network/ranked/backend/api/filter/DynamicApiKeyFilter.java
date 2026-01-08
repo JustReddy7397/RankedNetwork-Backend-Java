@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Iterator;
 
 /**
@@ -26,13 +28,23 @@ public class DynamicApiKeyFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
+
         if (request.getRequestURI().startsWith("/api/") && !request.getRequestURI().equals("/api/key/request")) {
 
-            final String key = request.getHeader("X-API-KEY");
+            final String key = request.getHeader("API-KEY");
 
             if (key == null || !apiKeyService.validateKey(key)) {
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                response.getWriter().write("Invalid or expired API key");
+                response.setContentType("image/jpeg");
+                try (final InputStream is = getClass()
+                        .getClassLoader()
+                        .getResourceAsStream("static/unwiped_asscheeks.jpg");
+                     OutputStream os = response.getOutputStream()) {
+                    if (is != null) {
+                        is.transferTo(os);
+                    }
+                }
+
                 return;
             }
 
