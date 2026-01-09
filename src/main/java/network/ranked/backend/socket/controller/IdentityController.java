@@ -24,14 +24,15 @@ import java.util.Set;
  */
 @Controller
 @RequiredArgsConstructor
-public class ClientController {
+@MessageMapping("server:")
+public class IdentityController {
 
     private final CustomParser decoder;
     private final SocketSessionStore sessionStore;
     private final RedisServerRepository serverRepository;
     private final IdentityService identityService;
 
-    @MessageMapping("server:identity")
+    @MessageMapping("identity")
     public Mono<Ack<ClientInfo>> onIdentity(
             @Payload ClientIdentity identity,
             RSocketRequester requester

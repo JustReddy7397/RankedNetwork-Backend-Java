@@ -29,6 +29,7 @@ import java.util.UUID;
  */
 @Controller
 @RequiredArgsConstructor
+@MessageMapping("player:")
 public class PlayerController {
 
     private final CustomParser decoder;
@@ -38,7 +39,7 @@ public class PlayerController {
     private final ProfileRepository profileRepository;
     private final SocketSessionStore socketSessionStore;
 
-    @MessageMapping("player:connect")
+    @MessageMapping("connect")
     public Mono<Ack<PlayerConnectionUpdateResult>> onPlayerConnect(boolean isDisconnect, PlayerConnectionUpdate connectionUpdate, RSocketRequester requester) {
         Common.logInfo("SOCKET -> player:connect received");
 
